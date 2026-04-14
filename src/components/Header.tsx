@@ -9,6 +9,7 @@ const navLinks = [
   { to: "/features", label: "Features" },
   { to: "/doctors", label: "Doctors" },
   { to: "/hospitals", label: "Hospitals" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -23,16 +24,13 @@ export default function Header() {
           <img src={logo} alt="Vorqard" className="h-10 w-auto" width={40} height={40} />
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary ${
-                location.pathname === link.to
-                  ? "text-primary"
-                  : "text-foreground/70"
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary ${
+                location.pathname === link.to ? "text-primary" : "text-foreground/70"
               }`}
             >
               {link.label}
@@ -51,7 +49,6 @@ export default function Header() {
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="rounded-lg p-2 text-foreground md:hidden"
@@ -61,7 +58,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <nav className="border-t border-border bg-background px-4 pb-4 md:hidden">
           {navLinks.map((link) => (
@@ -70,9 +66,7 @@ export default function Header() {
               to={link.to}
               onClick={() => setMobileOpen(false)}
               className={`block rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
-                location.pathname === link.to
-                  ? "text-primary bg-secondary"
-                  : "text-foreground/70"
+                location.pathname === link.to ? "text-primary bg-secondary" : "text-foreground/70"
               }`}
             >
               {link.label}

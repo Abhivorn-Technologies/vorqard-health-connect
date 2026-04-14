@@ -6,7 +6,6 @@ export default function Footer() {
     <footer className="border-t border-border bg-foreground text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="grid gap-12 md:grid-cols-4">
-          {/* Brand */}
           <div className="md:col-span-1">
             <img src={logo} alt="Vorqard" className="mb-4 h-12 w-auto brightness-200" width={48} height={48} />
             <p className="text-sm text-primary-foreground/60 leading-relaxed">
@@ -14,7 +13,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Pages</h4>
             <ul className="space-y-2.5">
@@ -22,6 +20,7 @@ export default function Footer() {
                 { to: "/", label: "Home" },
                 { to: "/about", label: "About" },
                 { to: "/features", label: "Features" },
+                { to: "/pricing", label: "Pricing" },
                 { to: "/contact", label: "Contact" },
               ].map((l) => (
                 <li key={l.to}>
@@ -33,7 +32,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Solutions */}
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Solutions</h4>
             <ul className="space-y-2.5">
@@ -52,7 +50,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Contact</h4>
             <ul className="space-y-2.5 text-sm text-primary-foreground/60">
@@ -74,7 +71,13 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 border-t border-primary-foreground/10 pt-8 text-center text-sm text-primary-foreground/40">
-          © {new Date().getFullYear()} Vorqard Health Technologies. All rights reserved.
+          <p>© {new Date().getFullYear()} Vorqard Health Technologies. All rights reserved.</p>
+          <p className="mt-2">
+            Developed by{" "}
+            <a href="https://abhivorn.com" target="_blank" rel="noopener noreferrer" className="text-vorqard-teal hover:underline">
+              abhivorn.com
+            </a>
+          </p>
         </div>
       </div>
     </footer>

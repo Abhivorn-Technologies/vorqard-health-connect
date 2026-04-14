@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { QrCode, Clock, AlertTriangle, ScanLine, FileText, Pill, Upload, CalendarCheck, Building2, Users, ClipboardList, Settings } from "lucide-react";
+import { QrCode, Clock, AlertTriangle, ScanLine, FileText, Pill, Upload, CalendarCheck, Users, ClipboardList, Settings } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import emergencyProfile from "@/assets/emergency-profile.png";
+import heroQrScan from "@/assets/hero-qr-scan.png";
+import labTesting from "@/assets/lab-testing.png";
+import hospitalDashboard from "@/assets/hospital-dashboard.png";
 
 export const Route = createFileRoute("/features")({
   head: () => ({
@@ -14,6 +18,8 @@ export const Route = createFileRoute("/features")({
   }),
   component: FeaturesPage,
 });
+
+const sectionImages = [emergencyProfile, heroQrScan, labTesting, hospitalDashboard];
 
 const sections = [
   {
@@ -79,21 +85,39 @@ function FeaturesPage() {
         <section key={section.badge} className={`section-padding ${sIdx % 2 === 1 ? "bg-section-alt" : ""}`}>
           <div className="mx-auto max-w-7xl">
             <SectionHeading badge={section.badge} title={section.title} description={section.desc} />
-            <div className={`grid gap-6 ${section.features.length === 2 ? "sm:grid-cols-2 max-w-3xl mx-auto" : "sm:grid-cols-3"}`}>
-              {section.features.map((f, i) => (
-                <motion.div
-                  key={f.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="rounded-2xl border border-border bg-card p-8 transition-all hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1"
-                >
-                  <div className="mb-5 inline-flex rounded-xl gradient-primary p-3 text-primary-foreground">{f.icon}</div>
-                  <h3 className="mb-2 text-lg font-semibold">{f.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{f.text}</p>
-                </motion.div>
-              ))}
+            <div className="grid gap-12 items-center lg:grid-cols-2">
+              <div className={`grid gap-6 ${section.features.length === 2 ? "sm:grid-cols-1" : "sm:grid-cols-1"}`}>
+                {section.features.map((f, i) => (
+                  <motion.div
+                    key={f.title}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className="rounded-2xl border border-border bg-card p-6 transition-all hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1"
+                  >
+                    <div className="mb-4 inline-flex rounded-xl gradient-primary p-3 text-primary-foreground">{f.icon}</div>
+                    <h3 className="mb-2 text-lg font-semibold">{f.title}</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{f.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className={sIdx % 2 === 1 ? "order-first lg:order-last" : ""}
+              >
+                <img
+                  src={sectionImages[sIdx]}
+                  alt={`${section.badge} illustration`}
+                  className="mx-auto w-full max-w-sm rounded-3xl"
+                  width={400}
+                  height={400}
+                  loading="lazy"
+                />
+              </motion.div>
             </div>
           </div>
         </section>
