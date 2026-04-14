@@ -4,6 +4,7 @@ import { QrCode, Shield, Stethoscope, Building2, FlaskConical, Heart, ArrowRight
 import SectionHeading from "@/components/SectionHeading";
 import FeatureCard from "@/components/FeatureCard";
 import heroMockup from "@/assets/hero-mockup.png";
+import doctorPatient from "@/assets/doctor-patient.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -75,15 +76,31 @@ function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex-1"
         >
-          <div className="relative">
+          <div className="relative flex items-center justify-center">
             <div className="absolute -inset-4 rounded-3xl gradient-primary opacity-10 blur-3xl" />
+            {/* Doctor-patient illustration */}
             <img
-              src={heroMockup}
-              alt="Vorqard health app showing QR code digital health card"
-              className="relative mx-auto w-72 md:w-80 lg:w-96 animate-float"
-              width={800}
-              height={1024}
+              src={doctorPatient}
+              alt="Doctor consulting with patient"
+              className="relative mx-auto w-full max-w-md rounded-3xl shadow-2xl shadow-primary/15"
+              width={600}
+              height={600}
             />
+            {/* Floating phone mockup overlay */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="absolute -bottom-6 -right-4 md:-right-8"
+            >
+              <img
+                src={heroMockup}
+                alt="Vorqard health app showing QR code digital health card"
+                className="w-36 md:w-44 lg:w-52 animate-float rounded-2xl shadow-xl"
+                width={400}
+                height={512}
+              />
+            </motion.div>
           </div>
         </motion.div>
       </div>
