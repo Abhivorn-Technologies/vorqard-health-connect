@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { QrCode, Shield, Stethoscope, Building2, FlaskConical, Heart, ArrowRight, CheckCircle2, Star } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import FeatureCard from "@/components/FeatureCard";
-import heroMockup from "@/assets/hero-mockup.png";
-import doctorPatient from "@/assets/doctor-patient.jpg";
+import heroImage from "@/assets/hero-qr-scan.png";
+import qrSharing from "@/assets/qr-sharing.png";
+import familyHealth from "@/assets/family-health.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,29 +79,14 @@ function HeroSection() {
         >
           <div className="relative flex items-center justify-center">
             <div className="absolute -inset-4 rounded-3xl gradient-primary opacity-10 blur-3xl" />
-            {/* Doctor-patient illustration */}
             <img
-              src={doctorPatient}
-              alt="Doctor consulting with patient"
-              className="relative mx-auto w-full max-w-md rounded-3xl shadow-2xl shadow-primary/15"
+              src={heroImage}
+              alt="Patient sharing QR health card with doctor"
+              className="relative mx-auto w-full max-w-lg rounded-3xl"
               width={600}
               height={600}
+              loading="eager"
             />
-            {/* Floating phone mockup overlay */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              className="absolute -bottom-6 -right-4 md:-right-8"
-            >
-              <img
-                src={heroMockup}
-                alt="Vorqard health app showing QR code digital health card"
-                className="w-36 md:w-44 lg:w-52 animate-float rounded-2xl shadow-xl"
-                width={400}
-                height={512}
-              />
-            </motion.div>
           </div>
         </motion.div>
       </div>
@@ -150,26 +136,33 @@ function HowItWorksSection() {
           title="Simple. Secure. Smart."
           description="Four easy steps to digitize your complete health identity."
         />
-        <div className="grid gap-8 md:grid-cols-4">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.num}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="relative text-center"
-            >
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary text-2xl font-bold text-primary-foreground">
-                {step.num}
-              </div>
-              <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
-              <p className="text-sm text-muted-foreground">{step.desc}</p>
-              {i < 3 && (
-                <div className="absolute right-0 top-8 hidden h-0.5 w-12 translate-x-full bg-border lg:block" />
-              )}
-            </motion.div>
-          ))}
+        <div className="grid gap-12 items-center lg:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-2">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="text-center sm:text-left"
+              >
+                <div className="mx-auto sm:mx-0 mb-4 flex h-14 w-14 items-center justify-center rounded-2xl gradient-primary text-xl font-bold text-primary-foreground">
+                  {step.num}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
+                <p className="text-sm text-muted-foreground">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <img src={qrSharing} alt="Patient and doctor sharing QR codes" className="mx-auto w-full max-w-md rounded-3xl" width={500} height={500} loading="lazy" />
+          </motion.div>
         </div>
       </div>
     </section>
@@ -194,20 +187,30 @@ function BenefitsSection() {
           title="Why Choose Vorqard?"
           description="A smarter way to manage healthcare records for the entire ecosystem."
         />
-        <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
-          {benefits.map((b, i) => (
-            <motion.div
-              key={b}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="flex items-center gap-3 rounded-xl border border-border bg-card p-4"
-            >
-              <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-              <span className="text-sm font-medium">{b}</span>
-            </motion.div>
-          ))}
+        <div className="grid gap-12 items-center lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <img src={familyHealth} alt="Family using Vorqard health app" className="mx-auto w-full max-w-md rounded-3xl" width={500} height={500} loading="lazy" />
+          </motion.div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {benefits.map((b, i) => (
+              <motion.div
+                key={b}
+                initial={{ opacity: 0, x: 16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="flex items-center gap-3 rounded-xl border border-border bg-card p-4"
+              >
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
+                <span className="text-sm font-medium">{b}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

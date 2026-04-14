@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { LayoutDashboard, Users, ClipboardList, Settings, Plug, BarChart3, CheckCircle2 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import FeatureCard from "@/components/FeatureCard";
+import hospitalDashboard from "@/assets/hospital-dashboard.png";
 
 export const Route = createFileRoute("/hospitals")({
   head: () => ({
@@ -38,16 +39,19 @@ function HospitalsPage() {
   return (
     <>
       <section className="hero-gradient-bg section-padding">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-7xl grid gap-12 lg:grid-cols-2 items-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className="mb-4 inline-block rounded-full bg-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">For Hospitals</span>
             <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
               Digitize Your{" "}
               <span className="text-gradient-brand">Hospital Workflows</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
               One platform to manage doctors, patients, appointments, and records. Built for modern hospitals.
             </p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            <img src={hospitalDashboard} alt="Hospital dashboard management" className="w-full max-w-md mx-auto rounded-3xl" width={500} height={500} loading="eager" />
           </motion.div>
         </div>
       </section>
