@@ -140,7 +140,7 @@ function ContactPage() {
                 <div className="rounded-xl gradient-primary p-3 text-primary-foreground"><Mail size={20} /></div>
                 <div>
                   <p className="font-medium text-sm">Email</p>
-                  <a href="mailto:contact@vorqard.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">contact@vorqard.com</a>
+                  <a href="mailto:support@vorqard.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">support@vorqard.com</a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -159,10 +159,9 @@ function ContactPage() {
               </div>
             </div>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-border">
+            <div className="mt-8 rounded-xl border border-input overflow-hidden bg-muted/20">
               <iframe
-                title="Vorqard Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995709657!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1680000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8860266446467!2d72.87944961524658!3d19.076092587155628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce4e0000001!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
