@@ -1,7 +1,5 @@
-import { createRouter, useRouter } from "@tanstack/react-router";
+import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
-
-let routerInstance: ReturnType<typeof createRouter> | undefined;
 
 function DefaultErrorComponent({
   error,
@@ -10,14 +8,6 @@ function DefaultErrorComponent({
   error: Error;
   reset: () => void;
 }) {
-  let router;
-  let hasRouter = true;
-  try {
-    router = useRouter();
-  } catch {
-    hasRouter = false;
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -50,12 +40,7 @@ function DefaultErrorComponent({
         )}
         <div className="mt-6 flex items-center justify-center gap-3">
           <button
-            onClick={() => {
-              if (hasRouter && router) {
-                router.invalidate();
-              }
-              reset();
-            }}
+            onClick={() => reset()}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Try again

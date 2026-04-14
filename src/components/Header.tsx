@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/vorqard-logo.png";
@@ -13,19 +13,8 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-function useRouterLocation() {
-  const location = useLocation();
-  return location.pathname;
-}
-
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  let pathname = "/";
-  try {
-    pathname = useRouterLocation();
-  } catch {
-    // SSR fallback - useSyncExternalStore would have triggered this
-  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card-strong">
@@ -39,9 +28,7 @@ export default function Header() {
             <Link
               key={link.to}
               to={link.to}
-              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary ${
-                pathname === link.to ? "text-primary" : "text-foreground/70"
-              }`}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:text-primary"
             >
               {link.label}
             </Link>
@@ -75,9 +62,7 @@ export default function Header() {
               key={link.to}
               to={link.to}
               onClick={() => setMobileOpen(false)}
-              className={`block rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
-                pathname === link.to ? "text-primary bg-secondary" : "text-foreground/70"
-              }`}
+              className="block rounded-lg px-4 py-3 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:text-primary data-[status=active]:bg-secondary"
             >
               {link.label}
             </Link>
