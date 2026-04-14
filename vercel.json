@@ -1,0 +1,30 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "devCommand": "npm run dev",
+  "git": {
+    "deploymentEnabled": true
+  },
+  "routes": [
+    {
+      "src": "^/assets/(.*)$",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "^/favicon.ico$", 
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/favicon.png$",
+      "dest": "/favicon.png"
+    },
+    {
+      "src": "^/placeholder.svg$",
+      "dest": "/placeholder.svg"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
