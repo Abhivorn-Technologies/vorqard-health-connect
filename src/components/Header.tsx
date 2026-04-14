@@ -13,9 +13,19 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+function useRouterLocation() {
+  const location = useLocation();
+  return location.pathname;
+}
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
+  let pathname = "/";
+  try {
+    pathname = useRouterLocation();
+  } catch {
+    // SSR fallback - useSyncExternalStore would have triggered this
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card-strong">
@@ -30,7 +40,7 @@ export default function Header() {
               key={link.to}
               to={link.to}
               className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary ${
-                location.pathname === link.to ? "text-primary" : "text-foreground/70"
+                pathname === link.to ? "text-primary" : "text-foreground/70"
               }`}
             >
               {link.label}
@@ -66,7 +76,7 @@ export default function Header() {
               to={link.to}
               onClick={() => setMobileOpen(false)}
               className={`block rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
-                location.pathname === link.to ? "text-primary bg-secondary" : "text-foreground/70"
+                pathname === link.to ? "text-primary bg-secondary" : "text-foreground/70"
               }`}
             >
               {link.label}
