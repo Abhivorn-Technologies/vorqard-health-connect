@@ -2,9 +2,29 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/client",
   "devCommand": "npm run dev",
-  "cleanUrls": false,
+  "cleanUrls": true,
   "trailingSlash": false,
   "git": {
     "deploymentEnabled": true
-  }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(favicon\\.(ico|png|svg)|placeholder\\.svg)",
+      "dest": "/$1",
+      "headers": {
+        "cache-control": "public, max-age=86400"
+      }
+    },
+    {
+      "src": "^/(?!assets/).*$",
+      "dest": "/index.html"
+    }
+  ]
 }
