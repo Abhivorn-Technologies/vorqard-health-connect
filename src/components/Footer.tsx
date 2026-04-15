@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-foreground text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid gap-12 md:grid-cols-5">
           <div className="md:col-span-1">
             <img src={logo} alt="Vorqard" className="mb-4 h-12 w-auto brightness-200" width={48} height={48} />
             <p className="text-sm text-primary-foreground/60 leading-relaxed">
@@ -21,6 +21,7 @@ export default function Footer() {
                 { to: "/about", label: "About" },
                 { to: "/features", label: "Features" },
                 { to: "/pricing", label: "Pricing" },
+                { to: "/blog", label: "Blog" },
                 { to: "/contact", label: "Contact" },
               ].map((l) => (
                 <li key={l.to}>
@@ -40,8 +41,28 @@ export default function Footer() {
                 { to: "/doctors", label: "For Doctors" },
                 { to: "/hospitals", label: "For Hospitals" },
                 { to: "/features", label: "For Labs" },
+                { to: "/faq", label: "FAQ" },
               ].map((l, i) => (
                 <li key={i}>
+                  <Link to={l.to} className="text-sm text-primary-foreground/60 transition-colors hover:text-vorqard-teal">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Legal</h4>
+            <ul className="space-y-2.5">
+              {[
+                { to: "/privacy", label: "Privacy Policy" },
+                { to: "/terms", label: "Terms of Service" },
+                { to: "/security", label: "Security" },
+                { to: "/data-protection", label: "Data Protection" },
+                { to: "/changelog", label: "Changelog" },
+              ].map((l) => (
+                <li key={l.to}>
                   <Link to={l.to} className="text-sm text-primary-foreground/60 transition-colors hover:text-vorqard-teal">
                     {l.label}
                   </Link>
@@ -54,7 +75,9 @@ export default function Footer() {
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Contact</h4>
             <ul className="space-y-2.5 text-sm text-primary-foreground/60">
               <li>support@vorqard.com</li>
-              <li>Mumbai, India</li>
+              <li>security@vorqard.com</li>
+              <li>dpo@vorqard.com</li>
+              <li className="mt-4">Mumbai, India</li>
             </ul>
             <div className="mt-6 flex gap-4">
               <a href="https://linkedin.com/company/vorqard" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/40 transition-colors hover:text-vorqard-teal" aria-label="LinkedIn">
@@ -71,6 +94,7 @@ export default function Footer() {
               Abhivorn Technologies
             </a>
           </p>
+          <p className="mt-2">© 2026 Vorqard. All rights reserved.</p>
         </div>
       </div>
     </footer>
