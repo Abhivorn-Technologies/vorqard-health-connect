@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/vorqard-logo.png";
@@ -15,6 +15,8 @@ const navLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card-strong">
@@ -28,7 +30,11 @@ export default function Header() {
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:text-primary"
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                isActive(link.to)
+                  ? 'text-primary bg-secondary'
+                  : 'text-foreground/70 hover:bg-secondary hover:text-primary'
+              }`}
             >
               {link.label}
             </Link>
@@ -62,7 +68,11 @@ export default function Header() {
               key={link.to}
               to={link.to}
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-4 py-3 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:text-primary data-[status=active]:bg-secondary"
+              className={`block rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+                isActive(link.to)
+                  ? 'text-primary bg-secondary'
+                  : 'text-foreground/70 hover:bg-secondary hover:text-primary'
+              }`}
             >
               {link.label}
             </Link>

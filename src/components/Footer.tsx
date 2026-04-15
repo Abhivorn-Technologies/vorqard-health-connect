@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import logo from "@/assets/vorqard-logo.png";
 
 export default function Footer() {

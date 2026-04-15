@@ -6,13 +6,13 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const projectRoot = path.join(path.dirname(__filename), '..');
-const assetDir = path.join(projectRoot, 'dist/client/assets');
-const distDir = path.join(projectRoot, 'dist/client');
+const assetDir = path.join(projectRoot, 'dist/assets');
+const distDir = path.join(projectRoot, 'dist');
 
 // Check if the assets directory exists
 if (!fs.existsSync(assetDir)) {
   console.error(`Assets directory not found: ${assetDir}`);
-  console.error('Build output structure may be different. Skipping post-build generation.');
+  console.error('Build output structure: CSR build uses dist/assets instead of dist/client/assets');
   process.exit(0);
 }
 
@@ -49,4 +49,4 @@ const html = `<!DOCTYPE html>
 </html>`;
 
 fs.writeFileSync(path.join(distDir, 'index.html'), html);
-console.log('✓ Generated dist/client/index.html');
+console.log('✓ Generated dist/index.html');
