@@ -9,6 +9,13 @@ const projectRoot = path.join(path.dirname(__filename), '..');
 const assetDir = path.join(projectRoot, 'dist/client/assets');
 const distDir = path.join(projectRoot, 'dist/client');
 
+// Check if the assets directory exists
+if (!fs.existsSync(assetDir)) {
+  console.error(`Assets directory not found: ${assetDir}`);
+  console.error('Build output structure may be different. Skipping post-build generation.');
+  process.exit(0);
+}
+
 // Find the main JS file (largest one, typically the entry point)
 const jsFiles = fs.readdirSync(assetDir)
   .filter(f => f.endsWith('.js'))
