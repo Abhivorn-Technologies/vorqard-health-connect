@@ -22,12 +22,16 @@ const jsFiles = fs.readdirSync(assetDir)
   .map(f => ({ name: f, size: fs.statSync(path.join(assetDir, f)).size }))
   .sort((a, b) => b.size - a.size);
 
-const cssFile = fs.readdirSync(assetDir).find(f => f.match(/^styles-.+\.css$/));
+const cssFile = fs.readdirSync(assetDir).find(f => f.endsWith('.css'));
 const jsFile = jsFiles.find(f => f.name.match(/^index-.+\.js$/))?.name || jsFiles[0]?.name;
 
 if (!jsFile) {
   console.error('Could not find JS entry point in', assetDir);
   process.exit(1);
+}
+
+if (!cssFile) {
+  console.warn('Warning: No CSS file found in assets directory');
 }
 
 console.log(`Using JS: ${jsFile}, CSS: ${cssFile}`);
