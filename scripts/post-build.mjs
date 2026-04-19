@@ -13,7 +13,7 @@ const distDir = path.join(projectRoot, 'dist');
 if (!fs.existsSync(assetDir)) {
   console.error(`Assets directory not found: ${assetDir}`);
   console.error('Build output structure: CSR build uses dist/assets instead of dist/client/assets');
-  process.exit(0);
+  process.exit(1);
 }
 
 // Find the main JS file (largest one, typically the entry point)
