@@ -198,7 +198,7 @@ export default function BlogPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder=""
                 className="flex-1 rounded-xl border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring/20"
               />
               <button className="rounded-xl gradient-primary px-8 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105">

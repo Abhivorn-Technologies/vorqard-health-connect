@@ -59,9 +59,16 @@ export default function PricingPage() {
           </li>
         ))}
       </ul>
-      <button className={`w-full rounded-xl py-3 font-semibold transition-transform hover:scale-105 ${plan.highlight ? "gradient-primary text-primary-foreground" : "border-2 border-primary text-primary"}`}>
+      <Link 
+        to="/onboarding"
+        className={`block w-full text-center rounded-xl py-3 font-semibold transition-transform hover:scale-105 ${
+          plan.highlight 
+            ? "gradient-primary text-primary-foreground shadow-md" 
+            : "border-2 border-primary text-primary hover:bg-primary/5"
+        }`}
+      >
         Get Started
-      </button>
+      </Link>
     </motion.div>
   )
 

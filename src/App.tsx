@@ -14,6 +14,8 @@ import TermsPage from './routes/TermsPage'
 import FAQPage from './routes/FAQPage'
 import ChangelogPage from './routes/ChangelogPage'
 import DataProtectionPage from './routes/DataProtectionPage'
+import OnboardingPage from './routes/OnboardingPage'
+import SetupPasswordPage from './routes/SetupPasswordPage'
 import NotFoundPage from './routes/NotFoundPage'
 
 export default function App() {
@@ -24,6 +26,10 @@ export default function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="features" element={<FeaturesPage />} />
         <Route path="pricing" element={<PricingPage />} />
+        <Route path="onboarding">
+          <Route index element={<OnboardingPage />} />
+          <Route path="verify" element={<SetupPasswordPage />} />
+        </Route>
         <Route path="doctors" element={<DoctorsPage />} />
         <Route path="hospitals" element={<HospitalsPage />} />
         <Route path="contact" element={<ContactPage />} />

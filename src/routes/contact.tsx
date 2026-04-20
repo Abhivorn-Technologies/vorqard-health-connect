@@ -70,7 +70,7 @@ function ContactPage() {
                   value={form.name}
                   onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                   className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
-                  placeholder="Your name"
+                  placeholder=""
                 />
               </div>
               <div>
@@ -83,7 +83,7 @@ function ContactPage() {
                   value={form.email}
                   onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                   className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
-                  placeholder="your@email.com"
+                  placeholder=""
                 />
               </div>
               <div>
@@ -95,7 +95,7 @@ function ContactPage() {
                   value={form.phone}
                   onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
                   className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20"
-                  placeholder="+91 9876543210"
+                  placeholder=""
                 />
               </div>
               <div>
@@ -108,7 +108,7 @@ function ContactPage() {
                   value={form.message}
                   onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
                   className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none"
-                  placeholder="Tell us about your needs..."
+                  placeholder=""
                 />
               </div>
               <button
