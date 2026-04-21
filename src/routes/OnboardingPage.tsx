@@ -22,8 +22,9 @@ export default function OnboardingPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      // Pointing to the VORQARD Backend API
-      const response = await fetch('http://localhost:8000/api/v1/onboarding/signup', {
+      // Pointing to the VORQARD Backend API via Environment Variables
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+      const response = await fetch(`${apiBaseUrl}/api/v1/onboarding/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

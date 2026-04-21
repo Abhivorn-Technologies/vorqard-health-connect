@@ -38,7 +38,8 @@ export default function SetupPasswordPage() {
       }
 
       try {
-        const res = await fetch(`http://localhost:8000/api/v1/onboarding/verify/${token}`)
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+        const res = await fetch(`${apiBaseUrl}/api/v1/onboarding/verify/${token}`)
         const data = await res.json()
         
         if (res.ok) {
@@ -62,7 +63,8 @@ export default function SetupPasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch('http://localhost:8000/api/v1/onboarding/activate', {
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+      const response = await fetch(`${apiBaseUrl}/api/v1/onboarding/activate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,8 +77,9 @@ export default function SetupPasswordPage() {
         setSuccess(true)
         // Auto redirect after 3 seconds
         setTimeout(() => {
-          // Point to your main VORQARD Login Page
-          window.location.href = "http://localhost:5173/login"
+          // Point to your main VORQARD Login Page via Env Variables
+          const dashboardUrl = import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5173"
+          window.location.href = `${dashboardUrl}/login`
         }, 3000)
       } else {
         const err = await response.json()
