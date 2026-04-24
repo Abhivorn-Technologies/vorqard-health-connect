@@ -43,12 +43,12 @@ export default function Header() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://play.google.com/store/apps/details?id=com.vorqard.app"
+            href="https://www.vorqard.com/onboarding"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-xl gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
           >
-            Download App
+            Get Started
           </a>
         </div>
 
@@ -78,12 +78,12 @@ export default function Header() {
             </Link>
           ))}
           <a
-            href="https://play.google.com/store/apps/details?id=com.vorqard.app"
+            href="https://www.vorqard.com/onboarding"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 block rounded-xl gradient-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
           >
-            Download App
+            Get Started
           </a>
         </nav>
       )}

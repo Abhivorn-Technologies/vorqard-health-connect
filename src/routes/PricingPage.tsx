@@ -9,20 +9,20 @@ export default function PricingPage() {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null)
 
   const doctorPlans = [
-    { name: "Basic", price: yearly ? "$299" : "$29", period: yearly ? "/year" : "/month", features: ["Up to 50 patients", "QR card scanning", "Basic records", "Email support"] },
-    { name: "Professional", price: yearly ? "$599" : "$59", period: yearly ? "/year" : "/month", highlight: true, features: ["Unlimited patients", "Digital prescriptions", "Patient notes", "Analytics dashboard", "Priority support"] },
+    { name: "Basic", price: yearly ? "₹299" : "₹29", period: yearly ? "/year" : "/month", features: ["Up to 50 patients", "QR card scanning", "Basic records", "Email support"] },
+    { name: "Professional", price: yearly ? "₹599" : "₹59", period: yearly ? "/year" : "/month", highlight: true, features: ["Unlimited patients", "Digital prescriptions", "Patient notes", "Analytics dashboard", "Priority support"] },
     { name: "Enterprise", price: "Custom", period: "", features: ["Multi-clinic support", "Custom integrations", "API access", "Dedicated account manager"] },
   ]
 
   const hospitalPlans = [
-    { name: "Small Hospital", price: yearly ? "$1,999" : "$199", period: yearly ? "/year" : "/month", features: ["Up to 100 patients", "Basic admin dashboard", "Doctor management", "Email support"] },
-    { name: "Large Hospital", price: yearly ? "$4,999" : "$499", period: yearly ? "/year" : "/month", highlight: true, features: ["Unlimited patients", "Full hospital workflow", "Advanced analytics", "Multi-department support", "Priority support"] },
+    { name: "Small Hospital", price: yearly ? "₹1,999" : "₹199", period: yearly ? "/year" : "/month", features: ["Up to 100 patients", "Basic admin dashboard", "Doctor management", "Email support"] },
+    { name: "Large Hospital", price: yearly ? "₹4,999" : "₹499", period: yearly ? "/year" : "/month", highlight: true, features: ["Unlimited patients", "Full hospital workflow", "Advanced analytics", "Multi-department support", "Priority support"] },
     { name: "Medical Network", price: "Custom", period: "", features: ["Multiple hospitals", "Custom workflows", "Full API access", "Dedicated support team"] },
   ]
 
   const labPlans = [
-    { name: "Startup Lab", price: yearly ? "$399" : "$39", period: yearly ? "/year" : "/month", features: ["Up to 100 tests/month", "Digital report sharing", "Basic integrations", "Email support"] },
-    { name: "Professional Lab", price: yearly ? "$799" : "$79", period: yearly ? "/year" : "/month", highlight: true, features: ["Up to 500 tests/month", "Advanced integrations", "Analytics", "API access", "Priority support"] },
+    { name: "Startup Lab", price: yearly ? "₹399" : "₹39", period: yearly ? "/year" : "/month", features: ["Up to 100 tests/month", "Digital report sharing", "Basic integrations", "Email support"] },
+    { name: "Professional Lab", price: yearly ? "₹799" : "₹79", period: yearly ? "/year" : "/month", highlight: true, features: ["Up to 500 tests/month", "Advanced integrations", "Analytics", "API access", "Priority support"] },
     { name: "Reference Lab", price: "Custom", period: "", features: ["Unlimited tests", "Custom workflows", "Full integrations", "Dedicated support"] },
   ]
 
@@ -67,7 +67,7 @@ export default function PricingPage() {
             : "border-2 border-primary text-primary hover:bg-primary/5"
         }`}
       >
-        Get Started
+        2 months Free Trial
       </Link>
     </motion.div>
   )
