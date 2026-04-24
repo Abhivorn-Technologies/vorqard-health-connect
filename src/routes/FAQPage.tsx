@@ -20,7 +20,7 @@ export default function FAQPage() {
         },
         {
           q: "Is Vorqard free to use?",
-          a: "Yes! Patients can use Vorqard for free. Doctors can create a free account. Hospitals and Labs have subscription plans starting at $199/month."
+          a: "Yes! Patients can use Vorqard for free. Doctors can create a free account. Hospitals and Labs have subscription plans starting at ₹199/month."
         }
       ]
     },

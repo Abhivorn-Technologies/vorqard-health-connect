@@ -27,7 +27,10 @@ export default function OnboardingPage() {
       const response = await fetch(`${apiBaseUrl}/api/v1/onboarding/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          platform_url: window.location.origin
+        })
       })
       
       if (response.ok) {
