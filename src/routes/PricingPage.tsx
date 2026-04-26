@@ -322,7 +322,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <Link 
-                  to="/onboarding"
+                  to={`/onboarding?type=${p.name.split(' ')[0].toLowerCase()}`}
                   className="mt-auto block w-full text-center rounded-xl py-4 font-bold gradient-primary text-primary-foreground shadow-lg transition-all hover:brightness-110"
                 >
                   2 Months Free Trial

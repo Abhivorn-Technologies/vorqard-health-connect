@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Building2, User, Mail, Phone, ArrowRight, Loader2, ShieldCheck, Sparkles, ChevronDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 export default function OnboardingPage() {
+  const [searchParams] = useSearchParams()
+  const typeParam = searchParams.get('type')
+
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState({
@@ -13,6 +16,17 @@ export default function OnboardingPage() {
     admin_phone: '',
     org_type: ''
   })
+
+  useEffect(() => {
+    if (typeParam) {
+      const typeMap: Record<string, string> = {
+        'hospital': 'Hospital',
+        'pharmacy': 'Pharmacy',
+        'lab': 'Laboratory'
+      }
+      setFormData(prev => ({ ...prev, org_type: typeMap[typeParam] || '' }))
+    }
+  }, [typeParam])
 
   const [errors, setErrors] = useState({
     hospital_name: '',
@@ -224,9 +238,12 @@ export default function OnboardingPage() {
             We've sent a verification link to <span className="text-foreground font-bold">{formData.admin_email}</span>. 
             Please click the link to set up your password and activate your hospital dashboard.
           </p>
-          <Link to="/" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
-            Return to Home <ArrowRight size={20} />
-          </Link>
+          <a 
+            href={`${import.meta.env.VITE_DASHBOARD_URL || 'https://app.vorqard.com'}/login`} 
+            className="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all"
+          >
+            Return to Login <ArrowRight size={20} />
+          </a>
         </motion.div>
       </div>
     )
@@ -348,28 +365,15 @@ export default function OnboardingPage() {
                  <div className="space-y-2">
                     <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest pl-1">Org Type</label>
                     <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground transition-colors">
                         <Building2 size={18} />
                       </div>
-                      <select 
-                        name="org_type"
-                        value={formData.org_type}
-                        onChange={handleChange}
-                        className={`w-full bg-muted/30 border-2 rounded-2xl pl-12 pr-10 py-4 focus:outline-none transition-all appearance-none font-normal ${
-                          errors.org_type ? "border-red-500" : "border-border focus:border-primary"
-                        }`}
-                      >
-                         <option value="">Select Type</option>
-                         <option value="Hospital">Hospital</option>
-                         <option value="Clinic">Clinic</option>
-                         <option value="Laboratory">Laboratory</option>
-                         <option value="Pharmacy">Pharmacy</option>
-                      </select>
-                      <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary">
-                        <ChevronDown size={18} />
-                      </div>
+                      <input 
+                        disabled
+                        value={formData.org_type || "Select Type"}
+                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 text-slate-500 font-bold cursor-not-allowed"
+                      />
                     </div>
-                    {errors.org_type && <p className="text-red-500 text-[10px] font-bold mt-1 pl-1">{errors.org_type}</p>}
                  </div>
               </div>
 
