@@ -3,9 +3,9 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   Loader2, Lock, ShieldCheck, CheckCircle2, 
-  ArrowRight, XCircle, MapPin, Globe, 
-  Building2, Navigation 
+  ArrowRight, XCircle
 } from 'lucide-react'
+import logo from "@/assets/vorqard-logo.png"
 
 export default function SetupPasswordPage() {
   const [searchParams] = useSearchParams()
@@ -21,12 +21,9 @@ export default function SetupPasswordPage() {
   
   const [formData, setFormData] = useState({
     password: '',
-    confirm_password: '',
-    address_line: '',
-    city: '',
-    state: '',
-    pincode: ''
+    confirm_password: ''
   })
+  const [validationError, setValidationError] = useState<string | null>(null)
 
   // 1. Verify Token on Load
   useEffect(() => {
@@ -59,9 +56,31 @@ export default function SetupPasswordPage() {
     }
     verify()
   }, [token])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setValidationError(null)
+
+    const { password, confirm_password } = formData
+
+    // 1. Validation Checks
+    if (password.length < 8) {
+      setValidationError("Password must be at least 8 characters long.")
+      return
+    }
+    if (!/[A-Z]/.test(password)) {
+      setValidationError("Password must contain at least one capital letter.")
+      return
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setValidationError("Password must contain at least one symbol.")
+      return
+    }
+    if (password !== confirm_password) {
+      setValidationError("Passwords do not match.")
+      return
+    }
+
+    setLoading(true)
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
       const response = await fetch(`${apiBaseUrl}/api/v1/onboarding/activate`, {
@@ -77,7 +96,6 @@ export default function SetupPasswordPage() {
         setSuccess(true)
         // Auto redirect after 3 seconds
         setTimeout(() => {
-          // Point to your main VORQARD Login Page via Env Variables
           const dashboardUrl = import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5173"
           window.location.href = `${dashboardUrl}/login`
         }, 3000)
@@ -94,8 +112,8 @@ export default function SetupPasswordPage() {
 
   if (verifying) {
     return (
-      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 bg-slate-50">
-         <Loader2 className="w-12 h-12 text-primary animate-spin mb-6" />
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#eefaf9]">
+         <Loader2 className="w-12 h-12 text-[#00a8b3] animate-spin mb-6" />
          <p className="text-muted-foreground font-bold animate-pulse">Running Security Verification...</p>
       </div>
     )
@@ -103,10 +121,10 @@ export default function SetupPasswordPage() {
 
   if (error) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-6 bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-[#eefaf9]">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-white rounded-3xl border border-red-100 p-10 text-center shadow-xl"
+          className="max-w-md w-full bg-white rounded-[2rem] p-10 text-center shadow-2xl"
         >
           <div className="w-16 h-16 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <XCircle size={32} />
@@ -123,22 +141,22 @@ export default function SetupPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-6 bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-[#eefaf9]">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full bg-white rounded-3xl border border-emerald-100 p-10 text-center shadow-2xl"
+          className="max-w-md w-full bg-white rounded-[2rem] p-10 text-center shadow-2xl"
         >
           <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
             <CheckCircle2 size={40} />
           </div>
           <h1 className="text-3xl font-black mb-4 tracking-tight">Welcome Aboard!</h1>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-muted-foreground mb-8 text-lg">
             Your VORQARD environment for <b>{hospitalData?.hospital_name}</b> has been provisioned. Redirecting to your dashboard...
           </p>
-          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
              <motion.div 
                initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 3 }}
-               className="h-full bg-emerald-500" 
+               className="h-full bg-[#00a8b3]" 
              />
           </div>
         </motion.div>
@@ -147,145 +165,81 @@ export default function SetupPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen py-20 px-6 bg-slate-50 relative overflow-hidden">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen py-20 px-6 bg-[#eefaf9] flex flex-col items-center justify-center">
+      <div className="mb-12">
+        <img src={logo} alt="Vorqard" className="h-14 w-auto" />
+      </div>
+
+      <div className="max-w-md w-full">
         <motion.div
            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-           className="bg-white rounded-[2.5rem] border border-slate-200 p-8 lg:p-10 shadow-xl relative"
+           className="bg-white rounded-[2rem] p-8 lg:p-10 shadow-2xl relative"
         >
-           <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20">
-              <ShieldCheck size={28} />
-           </div>
+           <h2 className="text-3xl font-black tracking-tight mb-10 text-[#0a1b39]">Set Password</h2>
 
-           <h2 className="text-2xl lg:text-3xl font-black tracking-tight mb-2">Final Step.</h2>
-           <p className="text-muted-foreground font-medium mb-10 leading-relaxed">
-             Security validation passed for <span className="text-foreground font-bold">{hospitalData?.hospital_name}</span>. Create your master password.
-           </p>
-
-           <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Organization Details Section */}
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <h3 className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2">
-                  <Building2 size={14} /> Hospital Profile
-                </h3>
-                
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Physical Address</label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
-                      <MapPin size={18} />
-                    </div>
-                    <input 
-                      required 
-                      value={formData.address_line}
-                      onChange={(e) => setFormData({...formData, address_line: e.target.value})}
-                      className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all text-sm font-medium"
-                      placeholder="e.g. 123 Healthcare St, Suite 10"
-                    />
+           <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">
+                  Password
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 transition-colors">
+                    <Lock size={18} />
                   </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">City</label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
-                        <Globe size={16} />
-                      </div>
-                      <input 
-                        required 
-                        value={formData.city}
-                        onChange={(e) => setFormData({...formData, city: e.target.value})}
-                        className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all text-sm font-medium"
-                        placeholder="City"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">State</label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
-                        <Navigation size={16} />
-                      </div>
-                      <input 
-                        required 
-                        value={formData.state}
-                        onChange={(e) => setFormData({...formData, state: e.target.value})}
-                        className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all text-sm font-medium"
-                        placeholder="State"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Pincode / ZIP</label>
                   <input 
                     required 
-                    value={formData.pincode}
-                    onChange={(e) => setFormData({...formData, pincode: e.target.value})}
-                    className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl px-6 py-4 focus:outline-none transition-all text-sm font-medium"
-                    placeholder="e.g. 560038"
+                    type="password"
+                    autoComplete="new-password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                    className="w-full bg-white border-[1.5px] border-[#00a8b3]/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#00a8b3] transition-all text-base font-medium"
                   />
                 </div>
               </div>
 
-              {/* Security Section */}
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <h3 className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2">
-                  <ShieldCheck size={14} /> Security Setup
-                </h3>
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Master Password</label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
-                        <Lock size={18} />
-                      </div>
-                      <input 
-                        required 
-                        type="password"
-                        value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
-                        className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all text-sm font-medium"
-                        placeholder="••••••••"
-                      />
-                    </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-2">
+                  Confirm Password
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 transition-colors">
+                    <Lock size={18} />
                   </div>
-
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Confirm Password</label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
-                        <Lock size={18} />
-                      </div>
-                      <input 
-                        required 
-                        type="password"
-                        value={formData.confirm_password}
-                        onChange={(e) => setFormData({...formData, confirm_password: e.target.value})}
-                        className="w-full bg-slate-50 border-2 border-slate-100 focus:border-primary rounded-2xl pl-12 pr-4 py-4 focus:outline-none transition-all text-sm font-medium"
-                        placeholder="••••••••"
-                      />
-                    </div>
-                  </div>
+                  <input 
+                    required 
+                    type="password"
+                    autoComplete="new-password"
+                    value={formData.confirm_password}
+                    onChange={(e) => setFormData({...formData, confirm_password: e.target.value})}
+                    className="w-full bg-white border-[1.5px] border-[#00a8b3]/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#00a8b3] transition-all text-base font-medium"
+                  />
                 </div>
               </div>
 
-              <div className="pt-4">
+              {validationError && (
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-500 text-xs font-bold text-center"
+                >
+                  {validationError}
+                </motion.p>
+              )}
+
+              <div className="pt-2">
                 <button 
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-primary-hover active:bg-primary-active text-white rounded-2xl py-4 font-bold flex items-center justify-center gap-2 transition-all shadow-xl shadow-primary/20"
+                  className="w-full bg-[#00a8b3] hover:bg-[#00929c] active:scale-[0.98] text-white rounded-xl py-4 font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#00a8b3]/20 text-base uppercase tracking-wider"
                 >
-                  {loading ? <Loader2 size={24} className="animate-spin" /> : <>Save & Activate <ArrowRight size={20} /></>}
+                  {loading ? (
+                    <Loader2 size={20} className="animate-spin" />
+                  ) : (
+                    <>Activate System <ArrowRight size={20} /></>
+                  )}
                 </button>
               </div>
            </form>
         </motion.div>
-        
-        <p className="text-center mt-10 text-sm font-bold text-slate-400 uppercase tracking-widest bg-white/50 backdrop-blur-sm py-3 px-6 rounded-full inline-block mx-auto w-fit border border-slate-100">
-           🔒 Multi-Tenant Data Isolation Active
-        </p>
       </div>
     </div>
   )
