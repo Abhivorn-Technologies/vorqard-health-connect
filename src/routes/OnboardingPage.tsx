@@ -138,9 +138,20 @@ export default function OnboardingPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    // Clear error for this field when user starts typing
+    
+    let sanitizedValue = value
+    
+    // Enforce input restrictions as user types
+    if (name === 'admin_phone') {
+      // Remove everything except numbers
+      sanitizedValue = value.replace(/\D/g, '').slice(0, 10)
+    } else if (name === 'hospital_name' || name === 'admin_name') {
+      // Remove everything except letters and spaces
+      sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '')
+    }
+
     setErrors(prev => ({ ...prev, [name]: '' }))
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData(prev => ({ ...prev, [name]: sanitizedValue }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -155,23 +166,13 @@ export default function OnboardingPage() {
     }
 
     // Organization Name Validation
-    if (!formData.hospital_name.trim()) {
-      newErrors.hospital_name = 'Organization name is required'
-    } else if (!/^[a-zA-Z\s]*$/.test(formData.hospital_name)) {
-      newErrors.hospital_name = 'Characters only'
-    } else if (formData.hospital_name.length > 50) {
-      newErrors.hospital_name = 'Maximum 50 characters allowed'
+    if (!/^[a-zA-Z\s]+$/.test(formData.hospital_name)) {
+      newErrors.hospital_name = 'Organization name must contain only letters (A-Z)(a-z)'
     }
 
     // Admin Name Validation
-    if (!formData.admin_name.trim()) {
-      newErrors.admin_name = 'Admin name is required'
-    } else if (/\d/.test(formData.admin_name)) {
-      newErrors.admin_name = 'Not allowed number'
-    } else if (!/^[a-zA-Z\s]*$/.test(formData.admin_name)) {
-      newErrors.admin_name = 'only characters'
-    } else if (formData.admin_name.length > 50) {
-      newErrors.admin_name = 'Maximum 50 characters allowed'
+    if (!/^[a-zA-Z\s]+$/.test(formData.admin_name)) {
+      newErrors.admin_name = 'Only alphabets are allowed'
     }
 
     // Org Type Validation - Removed restriction
@@ -185,10 +186,8 @@ export default function OnboardingPage() {
     }
 
     // Phone Validation
-    if (!formData.admin_phone.trim()) {
-      newErrors.admin_phone = 'Phone number is required'
-    } else if (formData.admin_phone.length < 10 || formData.admin_phone.length > 15) {
-      newErrors.admin_phone = 'Enter a valid phone number with country code'
+    if (!/^\d{10}$/.test(formData.admin_phone)) {
+      newErrors.admin_phone = 'Only 10 numbers are allowed'
     }
 
     setErrors(newErrors)
@@ -303,9 +302,6 @@ export default function OnboardingPage() {
            transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="bg-card rounded-[2.5rem] border-2 border-border p-8 lg:p-12 shadow-2xl relative">
-            <div className="absolute top-0 right-10 -translate-y-1/2 bg-primary text-white px-6 py-2 rounded-2xl font-bold text-sm shadow-xl shadow-primary/20">
-               STEP 1 OF 2
-            </div>
 
             <h3 className="text-2xl font-bold mb-8">Setup Organization</h3>
 
@@ -334,7 +330,7 @@ export default function OnboardingPage() {
                   <motion.p 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-red-500 text-[10px] font-bold uppercase tracking-wider pl-1 mt-1"
+                    className="text-red-500 text-[10px] font-bold pl-1 mt-1"
                   >
                     {errors.hospital_name}
                   </motion.p>

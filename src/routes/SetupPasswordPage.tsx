@@ -62,22 +62,19 @@ export default function SetupPasswordPage() {
 
     const { password, confirm_password } = formData
 
-    // 1. Validation Checks
-    if (password.length < 8) {
-      setValidationError("Password must be at least 8 characters long.")
-      return
+    // 1. Complexity Validation (8+ chars, Capital, Symbol)
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    if (password.length < 8 || !hasCapital || !hasSymbol) {
+      setValidationError("Password must have at least 8 characters including a capital letter, and special symbol (&%@#!)");
+      return;
     }
-    if (!/[A-Z]/.test(password)) {
-      setValidationError("Password must contain at least one capital letter.")
-      return
-    }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      setValidationError("Password must contain at least one symbol.")
-      return
-    }
+
+    // 2. Match Validation
     if (password !== confirm_password) {
-      setValidationError("Passwords do not match.")
-      return
+      setValidationError("Please make sure both passwords match");
+      return;
     }
 
     setLoading(true)
@@ -165,26 +162,33 @@ export default function SetupPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen py-20 px-6 bg-[#eefaf9] flex flex-col items-center justify-center">
-      <div className="mb-12">
-        <img src={logo} alt="Vorqard" className="h-14 w-auto" />
-      </div>
-
-      <div className="max-w-md w-full">
-        <motion.div
-           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-           className="bg-white rounded-[2rem] p-8 lg:p-10 shadow-2xl relative"
+    <div className="min-h-screen bg-[#eefaf9] flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-[380px] flex flex-col items-center">
+        {/* Compact Logo */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
         >
-           <h2 className="text-3xl font-black tracking-tight mb-10 text-[#0a1b39]">Set Password</h2>
+          <img src={logo} alt="Vorqard" className="h-10 w-auto" />
+        </motion.div>
 
-           <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">
-                  Password
+        <motion.div
+           initial={{ opacity: 0, y: 20 }} 
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.1 }}
+           className="w-full bg-white rounded-[2rem] p-7 shadow-2xl border border-white/50"
+        >
+           <h2 className="text-xl font-black tracking-tight mb-8 text-[#0a1b39] text-center">Set Password</h2>
+
+           <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest pl-1">
+                  New Password
                 </label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 transition-colors">
-                    <Lock size={18} />
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#00a8b3] transition-colors">
+                    <Lock size={16} />
                   </div>
                   <input 
                     required 
@@ -192,18 +196,19 @@ export default function SetupPasswordPage() {
                     autoComplete="new-password"
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full bg-white border-[1.5px] border-[#00a8b3]/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#00a8b3] transition-all text-base font-medium"
+                    className="w-full bg-slate-50/50 border-[1.5px] border-slate-100 rounded-xl pl-11 pr-4 py-3.5 focus:outline-none focus:border-[#00a8b3] focus:bg-white transition-all text-sm font-medium"
+                    placeholder="••••••••"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-2">
+              <div className="space-y-1.5">
+                <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest pl-1">
                   Confirm Password
                 </label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 transition-colors">
-                    <Lock size={18} />
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#00a8b3] transition-colors">
+                    <Lock size={16} />
                   </div>
                   <input 
                     required 
@@ -211,16 +216,17 @@ export default function SetupPasswordPage() {
                     autoComplete="new-password"
                     value={formData.confirm_password}
                     onChange={(e) => setFormData({...formData, confirm_password: e.target.value})}
-                    className="w-full bg-white border-[1.5px] border-[#00a8b3]/30 rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:border-[#00a8b3] transition-all text-base font-medium"
+                    className="w-full bg-slate-50/50 border-[1.5px] border-slate-100 rounded-xl pl-11 pr-4 py-3.5 focus:outline-none focus:border-[#00a8b3] focus:bg-white transition-all text-sm font-medium"
+                    placeholder="••••••••"
                   />
                 </div>
               </div>
 
               {validationError && (
                 <motion.p 
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-red-500 text-xs font-bold text-center"
+                  className="text-red-500 text-[9px] font-bold text-center mt-2"
                 >
                   {validationError}
                 </motion.p>
@@ -229,17 +235,24 @@ export default function SetupPasswordPage() {
               <div className="pt-2">
                 <button 
                   disabled={loading}
-                  className="w-full bg-[#00a8b3] hover:bg-[#00929c] active:scale-[0.98] text-white rounded-xl py-4 font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#00a8b3]/20 text-base uppercase tracking-wider"
+                  className="w-full gradient-primary text-white rounded-xl py-3.5 font-bold flex items-center justify-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-[#00a8b3]/20 text-[11px] uppercase tracking-widest overflow-hidden relative"
                 >
                   {loading ? (
-                    <Loader2 size={20} className="animate-spin" />
+                    <div className="flex items-center gap-2">
+                      <Loader2 size={16} className="animate-spin" />
+                      <span>Syncing...</span>
+                    </div>
                   ) : (
-                    <>Activate System <ArrowRight size={20} /></>
+                    <>Activate System <ArrowRight size={16} /></>
                   )}
                 </button>
               </div>
            </form>
         </motion.div>
+        
+        <p className="mt-6 text-[9px] text-slate-400 font-medium">
+          &copy; 2026 Vorqard Technologies. All rights reserved.
+        </p>
       </div>
     </div>
   )
