@@ -42,14 +42,12 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <a
-            href="https://www.vorqard.com/onboarding"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/onboarding"
             className="rounded-xl gradient-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
           >
             Get Started
-          </a>
+          </Link>
         </div>
 
         <button
@@ -77,14 +75,13 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <a
-            href="https://www.vorqard.com/onboarding"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/onboarding"
+            onClick={() => setMobileOpen(false)}
             className="mt-2 block rounded-xl gradient-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
           >
             Get Started
-          </a>
+          </Link>
         </nav>
       )}
     </header>

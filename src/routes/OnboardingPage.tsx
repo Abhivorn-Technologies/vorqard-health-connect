@@ -38,6 +38,7 @@ export default function OnboardingPage() {
 
   const [countryCode, setCountryCode] = useState('+91')
   const [showCountryMenu, setShowCountryMenu] = useState(false)
+  const [showOrgMenu, setShowOrgMenu] = useState(false)
 
   const countries = [
     { code: '+91', name: 'India', flag: 'in' },
@@ -361,14 +362,42 @@ export default function OnboardingPage() {
                  <div className="space-y-2">
                     <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest pl-1">Org Type</label>
                     <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground transition-colors">
-                        <Building2 size={18} />
-                      </div>
-                      <input 
-                        disabled
-                        value={formData.org_type || "Select Type"}
-                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl pl-12 pr-4 py-4 text-slate-500 font-bold cursor-not-allowed"
-                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowOrgMenu(!showOrgMenu)}
+                        className="w-full bg-muted/30 border-2 border-border rounded-2xl pl-12 pr-10 py-4 text-left focus:outline-none focus:border-primary transition-all flex items-center justify-between group"
+                      >
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-primary transition-colors">
+                          <Building2 size={18} />
+                        </div>
+                        <span className={`font-bold ${formData.org_type ? 'text-foreground' : 'text-muted-foreground'}`}>
+                          {formData.org_type || "Select Type"}
+                        </span>
+                        <ChevronDown size={18} className={`text-muted-foreground transition-transform duration-300 ${showOrgMenu ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {showOrgMenu && (
+                        <div 
+                          className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-2xl shadow-2xl z-[9999] overflow-hidden"
+                        >
+                          <div className="p-1">
+                            {['Hospital', 'Pharmacy', 'Laboratory'].map((type) => (
+                              <button
+                                key={type}
+                                type="button"
+                                onClick={() => {
+                                  console.log('Selecting type:', type);
+                                  setFormData(prev => ({ ...prev, org_type: type }));
+                                  setShowOrgMenu(false);
+                                }}
+                                className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 transition-colors rounded-xl text-left"
+                              >
+                                <span className="text-sm font-bold text-slate-900">{type}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                  </div>
               </div>
