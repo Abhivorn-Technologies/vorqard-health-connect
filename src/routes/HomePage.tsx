@@ -42,12 +42,13 @@ function HeroSection() {
             Scan Once. Treat Better. Connect patients, doctors, labs, and hospitals with secure QR-based medical records.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-            <Link
-              to="/onboarding"
+            <a
+              href="https://app.vorqard.com/signup"
+              target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl gradient-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:scale-105"
             >
               Get Started <ArrowRight size={18} />
-            </Link>
+            </a>
             <Link
               to="/features"
               className="inline-flex items-center gap-2 rounded-xl border-2 border-primary bg-background px-8 py-4 text-base font-semibold text-primary transition-colors hover:bg-secondary"

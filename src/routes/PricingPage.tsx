@@ -100,8 +100,9 @@ export default function PricingPage() {
           </li>
         ))}
       </ul>
-      <Link 
-        to="/onboarding"
+      <a 
+        href="https://app.vorqard.com/signup"
+        target="_blank" rel="noopener noreferrer"
         className={`block w-full text-center rounded-xl py-3 font-semibold transition-transform hover:scale-105 ${
           plan.highlight 
             ? "gradient-primary text-primary-foreground shadow-md" 
@@ -109,7 +110,7 @@ export default function PricingPage() {
         }`}
       >
         2 months Free Trial
-      </Link>
+      </a>
     </motion.div>
   )
 
@@ -321,12 +322,13 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link 
-                  to={`/onboarding?type=${p.name.split(' ')[0].toLowerCase()}`}
+                <a 
+                  href={`https://app.vorqard.com/signup?type=${p.name.split(' ')[0].toLowerCase()}`}
+                  target="_blank" rel="noopener noreferrer"
                   className="mt-auto block w-full text-center rounded-xl py-4 font-bold gradient-primary text-primary-foreground shadow-lg transition-all hover:brightness-110"
                 >
                   2 Months Free Trial
-                </Link>
+                </a>
               </motion.div>
             ))}
           </motion.div>

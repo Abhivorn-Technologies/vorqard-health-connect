@@ -55,7 +55,7 @@ function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
             <a
-              href="https://www.vorqard.com/onboarding"
+              href="https://app.vorqard.com/signup"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl gradient-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-transform hover:scale-105"
