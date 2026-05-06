@@ -75,9 +75,7 @@ export default function Footer() {
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground/40">Contact</h4>
             <ul className="space-y-2.5 text-sm text-primary-foreground/60">
               <li>support@vorqard.com</li>
-              <li>security@vorqard.com</li>
-              <li>dpo@vorqard.com</li>
-              <li className="mt-4">Mumbai, India</li>
+              <li className="mt-4">Hyderabad, India</li>
             </ul>
             <div className="mt-6 flex gap-4">
               <a href="https://linkedin.com/company/vorqard" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/40 transition-colors hover:text-vorqard-teal" aria-label="LinkedIn">

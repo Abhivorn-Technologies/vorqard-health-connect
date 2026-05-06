@@ -3,8 +3,12 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import SectionHeading from '@/components/SectionHeading'
+import emailjs from "@emailjs/browser"
 
 export default function ContactPage() {
+  // Initialize EmailJS
+  emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "");
+
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" })
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
 
@@ -15,10 +19,23 @@ export default function ContactPage() {
     setStatus("sending")
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || "",
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "",
+        {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: form.message,
+          title: `New Message from ${form.name}`,
+          to_name: "Vorqard Support",
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ""
+      );
       setStatus("success")
       setForm({ name: "", email: "", phone: "", message: "" })
-    } catch {
+    } catch (error) {
+      console.error("EmailJS Error details:", error)
       setStatus("error")
     }
   }
@@ -138,14 +155,14 @@ export default function ContactPage() {
                 <div className="rounded-xl gradient-primary p-3 text-primary-foreground"><MapPin size={20} /></div>
                 <div>
                   <p className="font-medium text-sm">Address</p>
-                  <p className="text-sm text-muted-foreground">Mumbai, Maharashtra, India</p>
+                  <p className="text-sm text-muted-foreground">Hyderabad, Telangana, India</p>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 rounded-xl border border-input overflow-hidden bg-muted/20">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8860266446467!2d72.87944961524658!3d19.076092587155628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce4e0000001!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243647.31604070602!2d78.26795914368943!3d17.41229980145262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78322a79b6f!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1715000000000!5m2!1sen!2sin"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
