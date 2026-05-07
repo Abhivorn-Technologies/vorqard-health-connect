@@ -148,7 +148,7 @@ export default function ContactPage() {
                 <div className="rounded-xl gradient-primary p-3 text-primary-foreground"><Phone size={20} /></div>
                 <div>
                   <p className="font-medium text-sm">Phone</p>
-                  <p className="text-sm text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-sm text-muted-foreground">+91 99666 29766</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">

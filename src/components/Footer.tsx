@@ -60,10 +60,16 @@ export default function Footer() {
                 { to: "/terms", label: "Terms of Service" },
                 { to: "/security", label: "Security" },
                 { to: "/data-protection", label: "Data Protection" },
+                { to: "/delete-account", label: "Delete Account", newTab: true },
                 { to: "/changelog", label: "Changelog" },
               ].map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="text-sm text-primary-foreground/60 transition-colors hover:text-vorqard-teal">
+                  <Link 
+                    to={l.to} 
+                    className="text-sm text-primary-foreground/60 transition-colors hover:text-vorqard-teal"
+                    target={l.newTab ? "_blank" : undefined}
+                    rel={l.newTab ? "noopener noreferrer" : undefined}
+                  >
                     {l.label}
                   </Link>
                 </li>

@@ -14,6 +14,7 @@ import TermsPage from './routes/TermsPage'
 import FAQPage from './routes/FAQPage'
 import ChangelogPage from './routes/ChangelogPage'
 import DataProtectionPage from './routes/DataProtectionPage'
+import DeleteAccountPage from './routes/DeleteAccountPage'
 import OnboardingPage from './routes/OnboardingPage'
 import SetupPasswordPage from './routes/SetupPasswordPage'
 import NotFoundPage from './routes/NotFoundPage'
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="faq" element={<FAQPage />} />
         <Route path="changelog" element={<ChangelogPage />} />
         <Route path="data-protection" element={<DataProtectionPage />} />
+        <Route path="delete-account" element={<DeleteAccountPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

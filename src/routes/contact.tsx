@@ -253,7 +253,7 @@ function ContactPage() {
                 <div>
                   <p className="font-medium text-sm">Phone</p>
                   <p className="text-sm text-muted-foreground">
-                    +91 9966629766
+                    +91 99666 29766
                   </p>
                 </div>
               </div>
